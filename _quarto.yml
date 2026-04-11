@@ -18,6 +18,7 @@ book:
   sidebar:
     style: docked
     search: true
+  page-navigation: true
 
   chapters:
     - index.qmd
