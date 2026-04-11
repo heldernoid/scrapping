@@ -231,18 +231,20 @@ The book is in `book/` as Markdown files, organized by part:
 If you use this book or code in your work, please cite:
 
 ```bibtex
-@book{monteiro2026scraping,
-  title     = {Autonomous Web Scraping with {AI}: A Config-Driven Approach},
+@misc{monteiro_2026_19513159,
   author    = {Monteiro, H{\'e}lder},
+  title     = {Autonomous Web Scraping with {AI}: A Config-Driven Approach},
+  month     = apr,
   year      = {2026},
-  url       = {https://heldernoid.github.io/scrapping},
-  note      = {Available at \url{https://heldernoid.github.io/scrapping}}
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.19513159},
+  url       = {https://doi.org/10.5281/zenodo.19513159}
 }
 ```
 
 Or in plain text:
 
-> Hélder Monteiro. *Autonomous Web Scraping with AI: A Config-Driven Approach*. 2026. https://heldernoid.github.io/scrapping
+> Hélder Monteiro. *Autonomous Web Scraping with AI: A Config-Driven Approach*. Zenodo, 2026. https://doi.org/10.5281/zenodo.19513159
 
 ## License
 

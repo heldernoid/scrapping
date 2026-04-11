@@ -69,16 +69,19 @@ If you use this book or its accompanying code in your work, please cite:
 **BibTeX:**
 
 ```bibtex
-@book{monteiro2026scraping,
-  title  = {Autonomous Web Scraping with AI: A Config-Driven Approach},
-  author = {Monteiro, H{\'e}lder},
-  year   = {2026},
-  url    = {https://heldernoid.github.io/scrapping}
+@misc{monteiro_2026_19513159,
+  author    = {Monteiro, H{\'e}lder},
+  title     = {Autonomous Web Scraping with {AI}: A Config-Driven Approach},
+  month     = apr,
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.19513159},
+  url       = {https://doi.org/10.5281/zenodo.19513159}
 }
 ```
 
 **Plain text:**
 
-Monteiro, H. *Autonomous Web Scraping with AI: A Config-Driven Approach*. 2026.
-<https://heldernoid.github.io/scrapping>
+Monteiro, H. *Autonomous Web Scraping with AI: A Config-Driven Approach*. Zenodo, 2026.
+<https://doi.org/10.5281/zenodo.19513159>
 
