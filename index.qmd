@@ -1,0 +1,84 @@
+---
+title: "Autonomous Web Scraping with AI: A Config-Driven Approach"
+subtitle: "From static HTML to AI-driven data collection"
+---
+
+## About This Book
+
+This book teaches you to build a complete, production-ready web scraping system
+using a declarative JSON configuration approach. Rather than writing custom
+Python for every target, you express each scraping task as a JSON object that
+your engine interprets - an approach that scales, composes, and that AI agents
+can generate autonomously.
+
+The book is structured in five parts:
+
+| Part | Theme | What you build |
+|------|-------|----------------|
+| 1 · Foundations | Why scraping, rendering, JSON contract | Mental model |
+| 2 · Extraction | Selectors, field types, pagination | Config vocabulary |
+| 3 · Rendering | Static, Playwright, auto-fallback | Full engine |
+| 4 · Scale | Scheduling, storage, change detection | Production ops |
+| 5 · AI Agents | Config generation, autonomous loop, MCP | AI-first scraping |
+
+## The Core Idea
+
+A scraper config is a JSON object that completely specifies a scraping task:
+
+```json
+{
+  "render_mode": "static",
+  "sources": [{
+    "url_template": "https://jobs.example.com/listings?page={n}",
+    "pagination": {"start": 1, "step": 1, "max_pages": 50}
+  }],
+  "listing": {
+    "link_selector": "a.job-link",
+    "link_prefix": "https://jobs.example.com"
+  },
+  "fields": {
+    "title":    {"selector": "h1.job-title",  "retrieve": "plaintext"},
+    "company":  {"selector": ".company-name", "retrieve": "plaintext"},
+    "salary":   {"selector": ".salary",       "retrieve": "regexp",
+                 "pattern": "\\$([\\d,]+)"},
+    "tags":     {"selector": ".skill-tag",    "retrieve": "plaintext",
+                 "multiple": true}
+  }
+}
+```
+
+This config drives pagination, link following, field extraction, and
+regex transforms - without a single line of custom Python.
+
+## Companion Repository
+
+All code, demo sites, Jupyter notebooks, and agent implementations are
+in the [GitHub repository](https://github.com/heldernoid/scrapping).
+
+```bash
+git clone https://github.com/heldernoid/scrapping
+cd scrapping
+uv sync
+cd demo-sites && docker compose up -d
+```
+
+## How to Cite
+
+If you use this book or its accompanying code in your work, please cite:
+
+**BibTeX:**
+
+```bibtex
+@book{monteiro2026scraping,
+  title  = {Autonomous Web Scraping with AI: A Config-Driven Approach},
+  author = {Monteiro, H{\'e}lder},
+  year   = {2026},
+  url    = {https://heldernoid.github.io/scrapping}
+}
+```
+
+**Plain text:**
+
+Monteiro, H. *Autonomous Web Scraping with AI: A Config-Driven Approach*. 2026.
+<https://heldernoid.github.io/scrapping>
+

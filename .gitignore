@@ -1,0 +1,33 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Quarto build output
+_site/
+.quarto/
+*_files/
+**/*.quarto_ipynb
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Scraped output (runtime artifacts)
+scraped_results.json
+agents/*_results.json
+agents/generated_config.json
+
+# Dev / PDF build tools (not needed by readers)
+dev-book/
+
+# OS
+.DS_Store
+Thumbs.db
+
+/.quarto/

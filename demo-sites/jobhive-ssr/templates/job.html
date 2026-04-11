@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} at {{ job.company }} - JobHive{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+  <a href="/">Jobs</a>
+  <span>/</span>
+  <a href="/?department={{ job.department | urlencode }}">{{ job.department }}</a>
+  <span>/</span>
+  <span>{{ job.title }}</span>
+</nav>
+
+<div class="job-hero">
+  <img class="job-hero-image"
+       src="https://picsum.photos/seed/{{ job.slug }}-hero/900/220"
+       alt="{{ job.company }} workplace">
+</div>
+
+<div class="job-detail" data-job-id="{{ job.id }}">
+  <div class="job-detail-header">
+    <div class="job-detail-title-block">
+      <div class="job-detail-company-row">
+        <img class="company-logo company-logo-lg"
+             src="https://picsum.photos/seed/{{ job.company | lower | replace(' ', '-') }}/64/64"
+             alt="{{ job.company }} logo">
+        <div>
+          <h1 class="job-detail-title">{{ job.title }}</h1>
+          <div class="job-detail-company">{{ job.company }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="job-detail-badges">
+      <span class="badge badge-remote">{{ job.remote }}</span>
+      <span class="badge badge-type">{{ job.type }}</span>
+      <span class="badge badge-dept">{{ job.department }}</span>
+    </div>
+  </div>
+
+  <div class="job-detail-meta-grid">
+    <div class="meta-item">
+      <span class="meta-label">Location</span>
+      <span class="meta-value job-location">{{ job.location }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Salary Range</span>
+      <span class="meta-value salary-range">${{ "{:,}".format(job.salary_min) }} - ${{ "{:,}".format(job.salary_max) }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Experience</span>
+      <span class="meta-value">{{ job.experience }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Posted</span>
+      <span class="meta-value">{{ job.posted_days_ago }} days ago</span>
+    </div>
+  </div>
+
+  <div class="job-detail-body">
+    <section class="job-section">
+      <h2>About the Role</h2>
+      <p class="job-description-full">{{ job.description }}</p>
+    </section>
+
+    <section class="job-section">
+      <h2>Requirements</h2>
+      <ul class="requirements-list">
+        {% for req in job.requirements %}
+        <li class="requirement-item">{{ req }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="job-section">
+      <h2>Benefits</h2>
+      <ul class="benefits-list">
+        {% for benefit in job.benefits %}
+        <li class="benefit-item">{{ benefit }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <div class="job-apply-box">
+    <button class="btn btn-primary btn-large">Apply Now</button>
+    <p class="apply-note">Job ID: <code>{{ job.id }}</code></p>
+  </div>
+</div>
+{% endblock %}

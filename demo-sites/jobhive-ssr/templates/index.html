@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Jobs - JobHive{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Open Positions
+    <span class="page-count">({{ total_items }} jobs)</span>
+  </h1>
+</div>
+
+<div class="layout-sidebar">
+  <!-- Filters sidebar -->
+  <aside class="sidebar">
+    <div class="filter-group">
+      <h3 class="sidebar-title">Department</h3>
+      <ul class="category-list">
+        <li><a href="/" class="category-link {% if not active_department %}active{% endif %}">All Departments</a></li>
+        {% for dept in departments %}
+        <li>
+          <a href="/?department={{ dept | urlencode }}{% if active_remote %}&remote={{ active_remote | urlencode }}{% endif %}"
+             class="category-link {% if active_department == dept %}active{% endif %}">
+            {{ dept }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="filter-group" style="margin-top:20px">
+      <h3 class="sidebar-title">Work Type</h3>
+      <ul class="category-list">
+        <li><a href="/" class="category-link {% if not active_remote %}active{% endif %}">All Types</a></li>
+        {% for opt in remote_options %}
+        <li>
+          <a href="/?remote={{ opt | urlencode }}{% if active_department %}&department={{ active_department | urlencode }}{% endif %}"
+             class="category-link {% if active_remote == opt %}active{% endif %}">
+            {{ opt }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Job listings -->
+  <div class="main-content">
+    <div class="job-list" data-testid="job-list">
+      {% for job in jobs %}
+      <article class="job-card" data-job-id="{{ job.id }}">
+        <div class="job-card-header">
+          <div class="job-card-main">
+            <img class="company-logo"
+                 src="https://picsum.photos/seed/{{ job.company | lower | replace(' ', '-') }}/48/48"
+                 alt="{{ job.company }} logo"
+                 loading="lazy">
+            <div>
+              <h2 class="job-title">
+                <a href="/jobs/{{ job.slug }}" class="job-link">{{ job.title }}</a>
+              </h2>
+              <div class="job-company">{{ job.company }}</div>
+            </div>
+          </div>
+          <div class="job-badges">
+            <span class="badge badge-remote">{{ job.remote }}</span>
+            <span class="badge badge-type">{{ job.type }}</span>
+          </div>
+        </div>
+        <div class="job-meta">
+          <span class="job-location">{{ job.location }}</span>
+          <span class="job-salary">${{ "{:,}".format(job.salary_min) }} - ${{ "{:,}".format(job.salary_max) }}</span>
+          <span class="job-experience">{{ job.experience }}</span>
+          <span class="job-posted">{{ job.posted_days_ago }}d ago</span>
+        </div>
+        <p class="job-description">{{ job.description[:140] }}...</p>
+        <div class="job-tags">
+          {% for req in job.requirements[:4] %}
+          <span class="tag">{{ req }}</span>
+          {% endfor %}
+        </div>
+        <a href="/jobs/{{ job.slug }}" class="btn btn-outline">View Job</a>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+    <nav class="pagination" aria-label="Job pages">
+      {% if has_prev %}
+      <a href="?page={{ page - 1 }}{% if active_department %}&department={{ active_department | urlencode }}{% endif %}{% if active_remote %}&remote={{ active_remote | urlencode }}{% endif %}"
+         class="pagination-btn">Previous</a>
+      {% endif %}
+
+      {% for p in range(1, total_pages + 1) %}
+      <a href="?page={{ p }}{% if active_department %}&department={{ active_department | urlencode }}{% endif %}{% if active_remote %}&remote={{ active_remote | urlencode }}{% endif %}"
+         class="pagination-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+      {% endfor %}
+
+      {% if has_next %}
+      <a href="?page={{ page + 1 }}{% if active_department %}&department={{ active_department | urlencode }}{% endif %}{% if active_remote %}&remote={{ active_remote | urlencode }}{% endif %}"
+         class="pagination-btn">Next</a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobHive</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">JobHive</a>
+      <nav class="site-nav">
+        <a href="/">Browse Jobs</a>
+      </nav>
+      <div class="header-badge">CSR</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!--
+      CSR DEMO: This is the ONLY HTML the server sends.
+      All job content below is injected by JavaScript after page load.
+      BeautifulSoup on this raw HTML sees nothing but this empty shell.
+      Playwright executes the JS and renders the real content.
+    -->
+    <div id="app">
+      <div class="loading">Loading jobs</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>JobHive CSR Demo &mdash; Content rendered client-side via JavaScript. View source to confirm the HTML is empty.</p>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

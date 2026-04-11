@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Products - ShopSphere{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Products
+    <span class="page-count">({{ total_items }} items)</span>
+  </h1>
+</div>
+
+<div class="layout-sidebar">
+  <!-- Category sidebar -->
+  <aside class="sidebar">
+    <h3 class="sidebar-title">Categories</h3>
+    <ul class="category-list">
+      <li>
+        <a href="/" class="category-link {% if not active_category %}active{% endif %}">
+          All Products
+        </a>
+      </li>
+      {% for cat in categories %}
+      <li>
+        <a href="/?category={{ cat | urlencode }}"
+           class="category-link {% if active_category == cat %}active{% endif %}">
+          {{ cat }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <!-- Product grid -->
+  <div class="main-content">
+    <div class="product-grid" data-testid="product-grid">
+      {% for product in products %}
+      <article class="product-card" data-product-id="{{ product.id }}">
+        <div class="product-image-wrapper">
+          <img class="product-image"
+               src="https://picsum.photos/seed/{{ product.slug }}/400/200"
+               alt="{{ product.name }}"
+               loading="lazy">
+          <span class="product-category-badge">{{ product.category }}</span>
+        </div>
+        <div class="product-card-body">
+          <h2 class="product-name">
+            <a href="/products/{{ product.slug }}" class="product-link">{{ product.name }}</a>
+          </h2>
+          <div class="product-meta">
+            <span class="product-price">${{ "%.2f" | format(product.price) }}</span>
+            <span class="product-rating" data-rating="{{ product.rating }}">
+              {{ product.rating }}/5
+            </span>
+            <span class="product-reviews">({{ product.review_count }} reviews)</span>
+          </div>
+          <div class="product-stock {% if product.in_stock %}in-stock{% else %}out-of-stock{% endif %}">
+            {% if product.in_stock %}In Stock{% else %}Out of Stock{% endif %}
+          </div>
+          <p class="product-description">{{ product.description[:120] }}...</p>
+          <a href="/products/{{ product.slug }}" class="btn btn-primary">View Details</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+    <nav class="pagination" aria-label="Product pages">
+      {% if has_prev %}
+      <a href="?page={{ page - 1 }}{% if active_category %}&category={{ active_category | urlencode }}{% endif %}"
+         class="pagination-btn">Previous</a>
+      {% endif %}
+
+      {% for p in range(1, total_pages + 1) %}
+      <a href="?page={{ p }}{% if active_category %}&category={{ active_category | urlencode }}{% endif %}"
+         class="pagination-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+      {% endfor %}
+
+      {% if has_next %}
+      <a href="?page={{ page + 1 }}{% if active_category %}&category={{ active_category | urlencode }}{% endif %}"
+         class="pagination-btn">Next</a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

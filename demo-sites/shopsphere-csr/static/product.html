@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product - ShopSphere</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">ShopSphere</a>
+      <nav class="site-nav">
+        <a href="/">All Products</a>
+      </nav>
+      <div class="header-badge">CSR</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Product detail injected here by product.js after fetching from /api/products/<slug> -->
+    <div id="app">
+      <div class="loading">Loading product</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>ShopSphere CSR Demo - Content rendered client-side via JavaScript.</p>
+    </div>
+  </footer>
+
+  <script src="/product.js"></script>
+</body>
+</html>

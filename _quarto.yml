@@ -1,0 +1,80 @@
+project:
+  type: book
+  output-dir: _site
+
+book:
+  title: "Autonomous Web Scraping with AI: A Config-Driven Approach"
+  author: "Hélder Monteiro"
+  date: "April 11, 2026"
+  description: |
+    A comprehensive guide to modern web scraping: from static HTML
+    extraction to AI-driven autonomous data collection using a
+    declarative JSON config contract.
+  repo-url: https://github.com/heldernoid/scrapping
+  repo-actions: [edit, issue]
+  site-url: https://heldernoid.github.io/scrapping
+  cover-image: book/diagrams/scraper-pipeline.png
+
+  sidebar:
+    style: docked
+    search: true
+
+  chapters:
+    - index.qmd
+    - text: "---"
+    - part: "Part 1: Foundations"
+      chapters:
+        - book/part-1-foundations/01-why-scraping.md
+        - book/part-1-foundations/02-rendering-landscape.md
+        - book/part-1-foundations/03-json-config-contract.md
+    - part: "Part 2: Extraction"
+      chapters:
+        - book/part-2-extraction/04-selectors.md
+        - book/part-2-extraction/05-fields-and-transforms.md
+        - book/part-2-extraction/06-pagination.md
+    - part: "Part 3: Rendering"
+      chapters:
+        - book/part-3-rendering/07-static-fetching.md
+        - book/part-3-rendering/08-playwright.md
+        - book/part-3-rendering/09-auto-fallback.md
+    - part: "Part 4: Scale"
+      chapters:
+        - book/part-4-scale/10-scheduling.md
+        - book/part-4-scale/11-storage.md
+        - book/part-4-scale/12-alerts.md
+    - part: "Part 5: AI Agents"
+      chapters:
+        - book/part-5-ai-agents/13-config-as-language.md
+        - book/part-5-ai-agents/14-autonomous-agents.md
+        - book/part-5-ai-agents/15-mcp.md
+        - notebooks/07-mcp-scraper-server.ipynb
+    - book/16-epilogue.md
+    - book/17-references.md
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    code-fold: false
+    code-copy: true
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    smooth-scroll: true
+    link-external-newwindow: true
+    fig-align: center
+    fig-cap-location: bottom
+    highlight-style: github
+    css: book/quarto-custom.css
+
+
+execute:
+  echo: true
+  eval: false
+
+crossref:
+  fig-title: Figure
+  tbl-title: Table
+  fig-prefix: Figure
+  tbl-prefix: Table

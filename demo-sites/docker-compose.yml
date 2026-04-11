@@ -1,0 +1,33 @@
+services:
+
+  shopsphere-ssr:
+    build: ./shopsphere-ssr
+    ports:
+      - "8001:8001"
+    environment:
+      FLASK_APP: app.py
+    restart: unless-stopped
+
+  shopsphere-csr:
+    build: ./shopsphere-csr
+    ports:
+      - "8002:8002"
+    environment:
+      FLASK_APP: app.py
+    restart: unless-stopped
+
+  jobhive-ssr:
+    build: ./jobhive-ssr
+    ports:
+      - "8003:8003"
+    environment:
+      FLASK_APP: app.py
+    restart: unless-stopped
+
+  jobhive-csr:
+    build: ./jobhive-csr
+    ports:
+      - "8004:8004"
+    environment:
+      FLASK_APP: app.py
+    restart: unless-stopped

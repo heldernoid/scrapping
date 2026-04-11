@@ -1,0 +1,92 @@
+{
+  "name": "ShopSphere SSR",
+  "description": "Server-side rendered marketplace. Static fetch works directly.",
+  "render_mode": "static",
+  "request": {
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (compatible; AutonomousScraper/1.0)"
+    }
+  },
+  "sources": [
+    {
+      "url_template": "http://localhost:8001/products?page={n}",
+      "index_type": "page",
+      "pagination": {
+        "start": 1,
+        "step": 1,
+        "max_pages": 10,
+        "stop_condition": "no_results"
+      }
+    }
+  ],
+  "listing": {
+    "link_selector": "a.product-link",
+    "link_prefix": "http://localhost:8001"
+  },
+  "fields": {
+    "title": {
+      "selector": "h1.product-title",
+      "retrieve": "plaintext"
+    },
+    "price": {
+      "selector": "span.price-amount",
+      "retrieve": "regexp",
+      "pattern": "[\\d,.]+"
+    },
+    "rating": {
+      "selector": "span.rating-value",
+      "retrieve": "attr",
+      "attr": "data-rating"
+    },
+    "review_count": {
+      "selector": "span.review-count",
+      "retrieve": "regexp",
+      "pattern": "[\\d,]+"
+    },
+    "category": {
+      "selector": "span.product-category-badge.large",
+      "retrieve": "plaintext"
+    },
+    "in_stock": {
+      "selector": ".stock-status",
+      "retrieve": "plaintext"
+    },
+    "description": {
+      "selector": "p.product-description-full",
+      "retrieve": "plaintext"
+    },
+    "product_id": {
+      "selector": "div.product-detail",
+      "retrieve": "attr",
+      "attr": "data-product-id"
+    },
+    "tags": {
+      "selector": "span.tag",
+      "retrieve": "plaintext",
+      "multiple": true
+    },
+    "image": {
+      "selector": "img.product-image-main",
+      "retrieve": "attr",
+      "attr": "src"
+    },
+    "gallery_images": {
+      "selector": "img.gallery-image",
+      "retrieve": "attr",
+      "attr": "src",
+      "multiple": true
+    }
+  },
+  "batch_fields": {
+    "selector": "table.specs-table tr",
+    "key_selector": "td.spec-key",
+    "value_selector": "td.spec-value",
+    "mapping": {
+      "Processor": "spec_processor",
+      "RAM": "spec_ram",
+      "Storage": "spec_storage",
+      "Display": "spec_display",
+      "Battery": "spec_battery"
+    }
+  }
+}

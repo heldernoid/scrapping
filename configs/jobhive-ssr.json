@@ -1,0 +1,95 @@
+{
+  "name": "JobHive SSR",
+  "description": "Server-side rendered job board. Static fetch works directly.",
+  "render_mode": "static",
+  "request": {
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (compatible; AutonomousScraper/1.0)"
+    }
+  },
+  "sources": [
+    {
+      "url_template": "http://localhost:8003/jobs?page={n}",
+      "index_type": "page",
+      "pagination": {
+        "start": 1,
+        "step": 1,
+        "max_pages": 10,
+        "stop_condition": "no_results"
+      }
+    }
+  ],
+  "listing": {
+    "link_selector": "a.job-link",
+    "link_prefix": "http://localhost:8003"
+  },
+  "fields": {
+    "title": {
+      "selector": "h1.job-detail-title",
+      "retrieve": "plaintext"
+    },
+    "company": {
+      "selector": "div.job-detail-company",
+      "retrieve": "plaintext"
+    },
+    "location": {
+      "selector": "span.job-location",
+      "retrieve": "plaintext"
+    },
+    "salary": {
+      "selector": "span.salary-range",
+      "retrieve": "plaintext"
+    },
+    "salary_min": {
+      "selector": "span.salary-range",
+      "retrieve": "regexp",
+      "pattern": "\\$(\\d[\\d,]+)"
+    },
+    "salary_max": {
+      "selector": "span.salary-range",
+      "retrieve": "regexp",
+      "pattern": "\\$[\\d,]+ - \\$(\\d[\\d,]+)"
+    },
+    "remote_type": {
+      "selector": "span.badge-remote",
+      "retrieve": "plaintext"
+    },
+    "job_type": {
+      "selector": "span.badge-type",
+      "retrieve": "plaintext"
+    },
+    "department": {
+      "selector": "span.badge-dept",
+      "retrieve": "plaintext"
+    },
+    "description": {
+      "selector": "p.job-description-full",
+      "retrieve": "plaintext"
+    },
+    "job_id": {
+      "selector": "div.job-detail",
+      "retrieve": "attr",
+      "attr": "data-job-id"
+    },
+    "requirements": {
+      "selector": "li.requirement-item",
+      "retrieve": "plaintext",
+      "multiple": true
+    },
+    "benefits": {
+      "selector": "li.benefit-item",
+      "retrieve": "plaintext",
+      "multiple": true
+    },
+    "company_image": {
+      "selector": "img.company-logo-lg",
+      "retrieve": "attr",
+      "attr": "src"
+    },
+    "hero_image": {
+      "selector": "img.job-hero-image",
+      "retrieve": "attr",
+      "attr": "src"
+    }
+  }
+}

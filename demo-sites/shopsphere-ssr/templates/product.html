@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} - ShopSphere{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+  <a href="/">Products</a>
+  <span>/</span>
+  <a href="/?category={{ product.category | urlencode }}">{{ product.category }}</a>
+  <span>/</span>
+  <span>{{ product.name }}</span>
+</nav>
+
+<div class="product-detail" data-product-id="{{ product.id }}">
+  <div class="product-detail-layout">
+    <div class="product-image-large">
+      <img class="product-image-main"
+           src="https://picsum.photos/seed/{{ product.slug }}/600/380"
+           alt="{{ product.name }}">
+      <span class="product-category-badge large">{{ product.category }}</span>
+      <div class="product-gallery">
+        <img class="gallery-image" src="https://picsum.photos/seed/{{ product.slug }}-alt1/200/150" alt="{{ product.name }} view 2" loading="lazy">
+        <img class="gallery-image" src="https://picsum.photos/seed/{{ product.slug }}-alt2/200/150" alt="{{ product.name }} view 3" loading="lazy">
+        <img class="gallery-image" src="https://picsum.photos/seed/{{ product.slug }}-alt3/200/150" alt="{{ product.name }} view 4" loading="lazy">
+      </div>
+    </div>
+
+    <div class="product-detail-info">
+      <h1 class="product-title">{{ product.name }}</h1>
+
+      <div class="product-rating-row">
+        <span class="rating-value" data-rating="{{ product.rating }}">{{ product.rating }}</span>
+        <span class="rating-label">/ 5.0</span>
+        <span class="review-count">({{ product.review_count }} customer reviews)</span>
+      </div>
+
+      <div class="product-price-box">
+        <span class="price-label">Price:</span>
+        <span class="price-amount">${{ "%.2f" | format(product.price) }}</span>
+      </div>
+
+      <div class="availability {% if product.in_stock %}available{% else %}unavailable{% endif %}">
+        {% if product.in_stock %}
+          <span class="stock-status">In Stock</span>
+        {% else %}
+          <span class="stock-status">Out of Stock</span>
+        {% endif %}
+      </div>
+
+      <div class="product-tags">
+        {% for tag in product.tags %}
+        <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="product-actions">
+        <button class="btn btn-primary btn-large" {% if not product.in_stock %}disabled{% endif %}>
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-details-section">
+    <div class="description-block">
+      <h2>Description</h2>
+      <p class="product-description-full">{{ product.description }}</p>
+    </div>
+
+    <div class="specs-block">
+      <h2>Specifications</h2>
+      <table class="specs-table">
+        <tbody>
+          {% for key, value in product.specs.items() %}
+          <tr>
+            <td class="spec-key">{{ key }}</td>
+            <td class="spec-value">{{ value }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
